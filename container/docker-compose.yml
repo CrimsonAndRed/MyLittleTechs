@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  techs:
+    build: ..
+    image: techs
+    container_name: techs
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    environment:
+      - DATASOURCES_DEFAULT_URL=jdbc:postgresql://database:5432/postgres
+  database:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
