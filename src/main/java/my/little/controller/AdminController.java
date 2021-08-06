@@ -1,6 +1,6 @@
 package my.little.controller;
 
-import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.event.ApplicationEventPublisher;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -15,20 +15,26 @@ import javax.inject.Inject;
 public class AdminController {
 
     @Inject
-    private ApplicationContext applicationContext;
+    private ApplicationEventPublisher eventPublisher;
 
     @Inject
     private RequestCounter requestCounter;
 
+    /**
+     * This request is showing RequestCounter state.
+     */
     @Get(uri = "/requests")
-    public RequestCount count() {
+    public RequestCount requests() {
         return new RequestCount(requestCounter.count());
     }
 
+    /**
+     * This request is testing Refreshable scoped beans functionality.
+     */
     @Post(uri = "/refresh")
     public HttpStatus refresh() {
         RefreshEvent refreshEvent = new RefreshEvent();
-        applicationContext.publishEventAsync(refreshEvent);
+        eventPublisher.publishEventAsync(refreshEvent);
         return HttpStatus.ACCEPTED;
     }
 }

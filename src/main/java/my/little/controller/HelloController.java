@@ -17,6 +17,9 @@ public class HelloController {
     @Inject
     DataSource dataSource;
 
+    /**
+     * This request is testing database connection.
+     */
     @Get
     public HelloModel get() throws SQLException {
         Connection c = dataSource.getConnection();

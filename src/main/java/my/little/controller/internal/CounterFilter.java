@@ -8,14 +8,16 @@ import io.micronaut.http.filter.HttpFilter;
 import my.little.service.RequestCounter;
 import org.reactivestreams.Publisher;
 
+import javax.inject.Inject;
+
+/**
+ * This filter counts each request.
+ */
 @Filter(Filter.MATCH_ALL_PATTERN)
 public class CounterFilter implements HttpFilter {
 
-    public CounterFilter(RequestCounter requestCounter) {
-        this.requestCounter = requestCounter;
-    }
-
-    private final RequestCounter requestCounter;
+    @Inject
+    private RequestCounter requestCounter;
 
     @Override
     public Publisher<? extends HttpResponse<?>> doFilter(HttpRequest<?> request, FilterChain chain) {
