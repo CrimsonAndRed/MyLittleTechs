@@ -2,8 +2,11 @@ package my.little.controller;
 
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.netty.util.internal.logging.Slf4JLoggerFactory;
 import my.little.model.HelloModel;
 import my.little.service.RequestCounter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -16,6 +19,7 @@ public class HelloController {
 
     @Inject
     DataSource dataSource;
+
 
     /**
      * This request is testing database connection.

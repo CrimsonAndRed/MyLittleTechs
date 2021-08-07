@@ -2,9 +2,13 @@ package my.little.model.inrospect;
 
 import io.micronaut.context.annotation.Executable;
 import io.micronaut.core.annotation.Introspected;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Introspected
 public class Mary {
+
+    private static final Logger log = LoggerFactory.getLogger(Mary.class);
 
     private String name;
 
@@ -39,7 +43,6 @@ public class Mary {
      */
     @Executable
     public void doSomething() {
-        System.out.println("Did something");
-
+        log.debug("Did something");
     }
 }

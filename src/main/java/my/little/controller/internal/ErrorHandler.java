@@ -7,12 +7,16 @@ import io.micronaut.http.annotation.Error;
 import io.netty.util.internal.ThrowableUtil;
 import my.little.model.internal.ErrorResult;
 import my.little.service.ErrorSequence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.time.Instant;
 
 @Controller
 public class ErrorHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(ErrorHandler.class);
 
     @Inject
     private ErrorSequence errorSequence;
@@ -25,8 +29,8 @@ public class ErrorHandler {
         Instant time = Instant.now();
         ErrorResult error = new ErrorResult(message, trace, errorId, time);
 
-        System.out.println("Error in endpoint: " + request.getPath() + "; with id: " + errorId + ":");
-        System.out.println(trace);
+        log.error("Error in endpoint: " + request.getPath() + "; with id: " + errorId + ":");
+        log.error(trace);
 
         return HttpResponse.<ErrorResult>serverError()
                 .body(error);
