@@ -21,9 +21,6 @@ import java.util.Optional;
 public class AdminController {
 
     @Inject
-    private ApplicationEventPublisher eventPublisher;
-
-    @Inject
     private RequestCounter requestCounter;
 
     /**
@@ -32,16 +29,6 @@ public class AdminController {
     @Get(uri = "/requests")
     public RequestCount requests() {
         return new RequestCount(requestCounter.count());
-    }
-
-    /**
-     * This request is testing Refreshable scoped beans functionality.
-     */
-    @Post(uri = "/refresh")
-    public HttpStatus refresh() {
-        RefreshEvent refreshEvent = new RefreshEvent();
-        eventPublisher.publishEventAsync(refreshEvent);
-        return HttpStatus.ACCEPTED;
     }
 
     /**

@@ -29,6 +29,8 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql:42.2.23")
     // Introspection dependency
     annotationProcessor("io.micronaut:micronaut-inject-java:2.5.11")
+    // Management endpoints (like spring actuator)
+    implementation("io.micronaut:micronaut-management:2.5.11")
 }
 
 
