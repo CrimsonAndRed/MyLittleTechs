@@ -2,6 +2,7 @@
 - local cache
 - security
 - micrometer
+- requests logging
 
 # Project
 Learning some technologies with Micronaut.
