@@ -14,11 +14,4 @@ datasources:
 endpoints:
   all:
     path: /management
-    sensitive: false
-  health:
-    jdbc:
-      enabled: true
-  loggers:
-    enabled: true
-  stop:
-    enabled: true
+    sensitive: true

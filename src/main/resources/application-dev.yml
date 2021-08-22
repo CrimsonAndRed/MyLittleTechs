@@ -1,0 +1,7 @@
+endpoints:
+  all:
+    sensitive: false
+  loggers:
+    enabled: true
+  stop:
+    enabled: true

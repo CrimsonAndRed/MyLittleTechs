@@ -1,0 +1,6 @@
+endpoints:
+  all:
+    sensitive: true
+  health:
+    jdbc:
+      enabled: true

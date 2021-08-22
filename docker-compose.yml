@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   techs:
-    build: ..
+    build: .
     image: techs
-    container_name: techs
+    container_name: techs_compose
     ports:
       - 8080:8080
     depends_on:
       - database
     environment:
-      - DATASOURCES_DEFAULT_URL=jdbc:postgresql://database:5432/postgres
+      - MICRONAUT_ENVIRONMENTS=docker,prod
   database:
     image: postgres:13
     ports:
