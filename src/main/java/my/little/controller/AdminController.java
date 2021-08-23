@@ -1,13 +1,9 @@
 package my.little.controller;
 
-import io.micronaut.context.event.ApplicationEventPublisher;
 import io.micronaut.core.beans.BeanIntrospection;
 import io.micronaut.core.beans.BeanMethod;
-import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.runtime.context.scope.refresh.RefreshEvent;
 import my.little.model.admin.RequestCount;
 import my.little.model.inrospect.Mary;
 import my.little.service.RequestCounter;
@@ -42,8 +38,6 @@ public class AdminController {
         Optional<BeanMethod<Mary, Object>> method = methods.stream()
                 .filter(it -> Objects.equals(it.getName(), "doSomething"))
                 .findFirst();
-        method.ifPresent(it -> {
-            it.invoke(mary);
-        });
+        method.ifPresent(it -> it.invoke(mary));
     }
 }

@@ -3,22 +3,23 @@ package my.little.service;
 import io.micronaut.runtime.context.scope.Refreshable;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Refreshable
 public class RequestCounter {
 
-    private Long count;
+    private AtomicLong count;
 
     @PostConstruct
     private void init() {
-        count = 0L;
+        count = new AtomicLong(0L);
     }
 
     public Long count() {
-        return count;
+        return count.get();
     }
 
     public void inc() {
-        count += 1;
+        count.getAndAdd(1);
     }
 }

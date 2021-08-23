@@ -8,23 +8,23 @@ import io.micronaut.http.filter.FilterChain;
 import io.micronaut.http.filter.HttpFilter;
 import io.micronaut.http.filter.OncePerRequestHttpServerFilter;
 import io.micronaut.http.filter.ServerFilterChain;
-import my.little.service.RequestCounter;
+import io.reactivex.Flowable;
 import org.reactivestreams.Publisher;
-
-import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * This filter counts each request.
+ * This filter logs each request.
  */
 @Filter(Filter.MATCH_ALL_PATTERN)
-public class CounterFilter extends OncePerRequestHttpServerFilter {
+public class LoggingFilter extends OncePerRequestHttpServerFilter {
 
-    @Inject
-    private RequestCounter requestCounter;
+    private final static Logger log = LoggerFactory.getLogger(LoggingFilter.class);
 
     @Override
     protected Publisher<MutableHttpResponse<?>> doFilterOnce(HttpRequest<?> request, ServerFilterChain chain) {
-        requestCounter.inc();
-        return chain.proceed(request);
+        log.info("Received request: {}", request.getPath());
+        return Flowable.fromPublisher(chain.proceed(request))
+                .doOnNext(it -> log.info("Finished request with status: {}", it.getStatus().getCode()));
     }
 }

@@ -2,7 +2,8 @@
 - local cache
 - security
 - micrometer
-- requests logging
+- concurrency logging
+- try sagas
 
 # Project
 Learning some technologies with Micronaut.
